@@ -5,7 +5,7 @@
 ### Import
 
 ```javascript
-import * as FetchHelper from 'emiketic-lib/dist/common/fetch.helper';
+import * as FetchHelper from 'emiketic-starter-lib/dist/common/fetch.helper';
 ```
 
 ### `FetchHelper.ResponseHandler`
