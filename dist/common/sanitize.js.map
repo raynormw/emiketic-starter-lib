@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/common/sanitize.js"],"names":["SANITIZE","module","exports"],"mappings":";;AAAA,IAAMA,WAAYC,OAAOC,OAAP,GAAiB,EAAnC","file":"sanitize.js","sourcesContent":["const SANITIZE = (module.exports = {});\n"]}

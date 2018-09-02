@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/common/transform.js"],"names":["TRANSFORM","module","exports"],"mappings":";;AAAA,IAAMA,YAAaC,OAAOC,OAAP,GAAiB,EAApC","file":"transform.js","sourcesContent":["const TRANSFORM = (module.exports = {});\n"]}

@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/common/validate.js"],"names":["VALIDATE","module","exports"],"mappings":";;AAAA,IAAMA,WAAYC,OAAOC,OAAP,GAAiB,EAAnC","file":"validate.js","sourcesContent":["const VALIDATE = (module.exports = {});\n"]}

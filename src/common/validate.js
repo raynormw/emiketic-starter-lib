@@ -1,0 +1,1 @@
+const VALIDATE = (module.exports = {});
