@@ -82,7 +82,7 @@ export function Request(method, url, options = {}) {
     // }
   }
 
-  const request = new self.Request(url, {
+  const request = new global.Request(url, {
     method,
     headers,
     body,

@@ -125,7 +125,7 @@ function Request(method, url) {
     // }
   }
 
-  var request = new self.Request(url, _extends({
+  var request = new global.Request(url, _extends({
     method: method,
     headers: headers,
     body: body
