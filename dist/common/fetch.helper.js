@@ -112,15 +112,20 @@ function Request(method, url) {
   headers.Accept = 'application/json';
 
   if (body && (typeof body === 'undefined' ? 'undefined' : _typeof(body)) === 'object') {
-    if (body instanceof FormData) {
-      headers['Content-Type'] = 'multipart/form-data';
-    } else {
+    if (toString.call(body) === '[object Object]' || toString.call(body) === '[object Array]') {
       headers['Content-Type'] = 'application/json';
       body = JSON.stringify(body);
     }
+    // if (body instanceof FormData) {
+    //   headers['Content-Type'] = 'multipart/form-data';
+    // }
+
+    // if (body instanceof URLSearchParams) {
+    //   headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+    // }
   }
 
-  var request = new global.Request(url, _extends({
+  var request = new self.Request(url, _extends({
     method: method,
     headers: headers,
     body: body

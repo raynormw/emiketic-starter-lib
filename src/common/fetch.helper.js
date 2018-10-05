@@ -69,15 +69,20 @@ export function Request(method, url, options = {}) {
   headers.Accept = 'application/json';
 
   if (body && typeof body === 'object') {
-    if (body instanceof FormData) {
-      headers['Content-Type'] = 'multipart/form-data';
-    } else {
+    if (toString.call(body) === '[object Object]' || toString.call(body) === '[object Array]') {
       headers['Content-Type'] = 'application/json';
       body = JSON.stringify(body);
     }
+    // if (body instanceof FormData) {
+    //   headers['Content-Type'] = 'multipart/form-data';
+    // }
+
+    // if (body instanceof URLSearchParams) {
+    //   headers['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+    // }
   }
 
-  const request = new global.Request(url, {
+  const request = new self.Request(url, {
     method,
     headers,
     body,

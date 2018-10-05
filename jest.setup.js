@@ -1,1 +1,2 @@
-import 'isomorphic-fetch';
+import 'formdata-polyfill';
+import 'whatwg-fetch';

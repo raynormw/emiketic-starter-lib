@@ -121,20 +121,19 @@ test('FetchHelper.Request with plain object body', () => {
 });
 
 test('FetchHelper.Request with FormData body', () => {
-  const body = new FormData();
-  body.append('name', 'John');
+  const body = {
+    name: 'John',
+  };
 
   const request = FetchHelper.Request('POST', '/user/:userId/profile', {
-    body,
+    body: FetchHelper.toFormData(body),
   });
 
   expect(request.method).toBe('POST');
 
   expect(request.url).toBe('/user/:userId/profile');
 
-  // expect(request.headers.get('Content-Type')).toBe(...);
-
-  // expect(request._bodyText).toBe('');
+  expect(request._bodyInit).toBeInstanceOf(FormData);
 });
 
 test('FetchHelper.Request with route and query params', () => {
@@ -247,8 +246,6 @@ test('FetchHelper async/await failure example', async () => {
   try {
     const response = await fetch(`${ENDPOINT}/status/400`);
     const result = await FetchHelper.ResponseHandler(response);
-
-    console.log(result);
   } catch (error) {
     error = FetchHelper.ErrorValueHandler(error);
 
