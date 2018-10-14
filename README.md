@@ -1,4 +1,4 @@
-# EMIKETIC Library
+# Library Starter
 
 A collection of common utilities.
 
