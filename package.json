@@ -16,7 +16,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "4.0.1",
+    "debug": "4.1.0",
     "events": "3.0.0",
     "formdata-polyfill": "3.0.12",
     "whatwg-fetch": "3.0.0"
