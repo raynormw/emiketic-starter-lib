@@ -16,23 +16,23 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "debug": "4.1.0",
-    "events": "3.0.0",
-    "formdata-polyfill": "3.0.12",
-    "whatwg-fetch": "3.0.0"
+    "debug": "~4.1.0",
+    "events": "~3.0.0",
+    "formdata-polyfill": "~3.0.12",
+    "whatwg-fetch": "~3.0.0"
   },
   "devDependencies": {
-    "babel-cli": "6.26.0",
-    "babel-eslint": "10.0.1",
-    "babel-jest": "23.6.0",
-    "babel-preset-env": "1.7.0",
-    "babel-preset-stage-2": "6.24.1",
-    "eslint": "5.7.0",
-    "eslint-config-airbnb-base": "13.1.0",
-    "eslint-plugin-import": "2.14.0",
-    "intl": "1.2.5",
-    "intl-locales-supported": "1.0.0",
-    "jest": "23.6.0",
-    "prettier": "1.14.3"
+    "babel-cli": "~6.26.0",
+    "babel-eslint": "~10.0.1",
+    "babel-jest": "~23.6.0",
+    "babel-preset-env": "~1.7.0",
+    "babel-preset-stage-2": "~6.24.1",
+    "eslint": "~5.8.0",
+    "eslint-config-airbnb-base": "~13.1.0",
+    "eslint-plugin-import": "~2.14.0",
+    "intl": "~1.2.5",
+    "intl-locales-supported": "~1.0.0",
+    "jest": "~23.6.0",
+    "prettier": "~1.14.3"
   }
 }
