@@ -1,4 +1,4 @@
-# Library Starter
+# Starter Library
 
 A collection of common utilities.
 
