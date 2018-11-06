@@ -41,5 +41,5 @@ CONST.LANGUAGE = CONST.constantify(['en', 'fr'], {
   FRENCH: 'fr'
 });
 
-CONST.SCOPE = CONST.constantify(['admin', 'client']);
+CONST.ROLE = CONST.constantify(['admin', 'client']);
 //# sourceMappingURL=const.js.map
