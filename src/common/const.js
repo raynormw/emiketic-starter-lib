@@ -19,9 +19,7 @@ CONST.LANGUAGE = Object.freeze({
   FRENCH: 'fr',
 });
 
-
 CONST.ROLE = Object.freeze({
   CLIENT: 'client',
   ADMIN: 'admin',
 });
-
