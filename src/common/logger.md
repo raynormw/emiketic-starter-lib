@@ -5,29 +5,29 @@
 Put the following in `./common/logger.js` (and make sure to load this file as early as possible)
 
 ```javascript
-import * as Logger from 'emiketic-starter-lib/dist/common/logger';
+import * as Logger from 'starter-lib/dist/common/logger';
 
-Logger.setup('HelloWorld');
+Logger.setup('Starter');
 
 if (process.env.NODE_ENV === 'development') {
-  Logger.enable('HelloWorld*');
+  Logger.enable('Starter*');
 }
 ```
 
 Then use it as follows:
 
 ```javascript
-import * as Logger from 'emiketic-starter-lib/dist/common/logger';
+import * as Logger from 'starter-lib/dist/common/logger';
 
 Logger.debug('test');
-// prints `HelloWorld DEBUG +0ms test` to stdout
+// prints `Starter DEBUG +0ms test` to stdout
 
 Logger.info('test');
-// prints `HelloWorld INFO +0ms test` to stdout
+// prints `Starter INFO +0ms test` to stdout
 
 Logger.warn('test');
-// prints `HelloWorld WARN +0ms test` to stderr
+// prints `Starter WARN +0ms test` to stderr
 
 Logger.error('test');
-// prints `HelloWorld ERROR +0ms test` to stderr
+// prints `Starter ERROR +0ms test` to stderr
 ```
