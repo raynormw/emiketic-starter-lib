@@ -1,5 +1,15 @@
 const CONST = (module.exports = {});
 
+CONST.normalize = function (value, valueMap, defaultValue) {
+  if (typeof value === 'string') {
+    value = value.trim();
+  }
+
+  const values = Object.values(valueMap);
+
+  return values.includes(value) ? value : defaultValue || values[0];
+};
+
 /**
  * Time Constants
  */
