@@ -1,4 +1,4 @@
-# FetchHelper
+# Fetch Helper
 
 ## Usage
 

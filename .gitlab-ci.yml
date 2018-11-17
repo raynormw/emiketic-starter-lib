@@ -60,7 +60,3 @@ build:
   script:
     - npm run build
     - npm pack
-    - cp $(node -e 'p=require("./package.json");console.log(p.name+"-"+p.version+".tgz")') starter-lib.tgz
-  artifacts:
-    paths:
-      - ./starter-lib.tgz
