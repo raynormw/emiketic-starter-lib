@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/common/text.js"],"names":["SUCCESS","FAILURE"],"mappings":";;;;;AAAO,IAAMA,4BAAU,qBAAhB;AACA,IAAMC,4BAAU,kBAAhB","file":"text.js","sourcesContent":["export const SUCCESS = 'Operation succeeded';\nexport const FAILURE = 'Operation failed';\n"]}
