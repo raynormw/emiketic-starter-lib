@@ -8,7 +8,7 @@
 import * as StateHelper from 'starter-lib/dist/redux/state.helper';
 ```
 
-### `StateHelper.createAsyncOperationActions`
+### `StateHelper.createFetchActions`
 
 ```javascript
 const MODULE = 'Task';
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   index: null,
 };
 
-const fetchIndex = StateHelper.createAsyncOperationActions(MODULE, 'fetchIndex');
+const fetchIndex = StateHelper.createFetchActions(MODULE, 'fetchIndex');
 
 export function $fetchIndex() {
   return (dispatch) => {

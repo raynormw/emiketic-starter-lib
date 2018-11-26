@@ -6,8 +6,8 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-exports.createSetOperationActions = createSetOperationActions;
-exports.createAsyncOperationActions = createAsyncOperationActions;
+exports.createAction = createAction;
+exports.createFetchActions = createFetchActions;
 exports.createRequestAction = createRequestAction;
 exports.createSuccessAction = createSuccessAction;
 exports.createFailureAction = createFailureAction;
@@ -15,32 +15,30 @@ exports.createIndexMetaActions = createIndexMetaActions;
 exports.createIndexSuccessAction = createIndexSuccessAction;
 exports.createItemSuccessAction = createItemSuccessAction;
 /**
- * Action creator factory for typical set operation
+ * Action creator factory for typical action
  */
 
-function createSetOperationActions(module, actionTypePrefix) {
-  var prefix = module + '_' + actionTypePrefix;
-
-  var SET = '' + prefix;
+function createAction(module, actionTypePrefix) {
+  var ACTION = module + '_' + actionTypePrefix;
 
   return {
-    SET: SET,
+    ACTION: ACTION,
 
-    set: function set() {
+    perform: function perform() {
       var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       return _extends({
-        type: SET
+        type: ACTION
       }, payload);
     }
   };
 }
 
 /**
- * Action creators factory for typical async operation
+ * Action creators factory for typical fetch operation
  */
 
-function createAsyncOperationActions(module, actionTypePrefix) {
+function createFetchActions(module, actionTypePrefix) {
   var prefix = module + '_' + actionTypePrefix;
 
   var REQUEST = prefix + '_REQUEST';
@@ -51,11 +49,11 @@ function createAsyncOperationActions(module, actionTypePrefix) {
     REQUEST: REQUEST,
 
     request: function request() {
-      var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       return _extends({
         type: REQUEST
-      }, payload);
+      }, parameters);
     },
 
 

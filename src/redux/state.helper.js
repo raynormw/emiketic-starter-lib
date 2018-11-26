@@ -1,18 +1,16 @@
 /**
- * Action creator factory for typical set operation
+ * Action creator factory for typical action
  */
 
-export function createSetOperationActions(module, actionTypePrefix) {
-  const prefix = `${module}_${actionTypePrefix}`;
-
-  const SET = `${prefix}`;
+export function createAction(module, actionTypePrefix) {
+  const ACTION = `${module}_${actionTypePrefix}`;
 
   return {
-    SET,
+    ACTION,
 
-    set(payload = {}) {
+    perform(payload = {}) {
       return {
-        type: SET,
+        type: ACTION,
         ...payload,
       };
     },
@@ -20,10 +18,10 @@ export function createSetOperationActions(module, actionTypePrefix) {
 }
 
 /**
- * Action creators factory for typical async operation
+ * Action creators factory for typical fetch operation
  */
 
-export function createAsyncOperationActions(module, actionTypePrefix) {
+export function createFetchActions(module, actionTypePrefix) {
   const prefix = `${module}_${actionTypePrefix}`;
 
   const REQUEST = `${prefix}_REQUEST`;
@@ -33,10 +31,10 @@ export function createAsyncOperationActions(module, actionTypePrefix) {
   return {
     REQUEST,
 
-    request(payload = {}) {
+    request(parameters = {}) {
       return {
         type: REQUEST,
-        ...payload,
+        ...parameters,
       };
     },
 
