@@ -23,7 +23,7 @@ export function $fetchIndex() {
   return (dispatch) => {
     dispatch(fetchIndex.request());
 
-    return fetch(`${API_ENDPOINT}/path`)
+    return fetch(`${API_ENDPOINT}/task`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
       .then((result) => dispatch(fetchIndex.success({ index: result.data })))
       .catch((error) => dispatch(fetchIndex.failure(error)))
@@ -47,6 +47,40 @@ export function reducer(state = INITIAL_STATE, action) {
       return {
         ...state,
         index: null,
+      };
+    default:
+      return state;
+  }
+}
+```
+
+### `StateHelper.createAction`
+
+```javascript
+const MODULE = 'Task';
+
+const INITIAL_STATE = {
+  item: null,
+};
+
+const selectItem = StateHelper.createAction(MODULE, 'selectItem');
+
+export function $selectItem(item) {
+  return (dispatch) => {
+    dispatch(fetchIndex.perform({ item  }));
+
+    return fetch(`${API_ENDPOINT}/task/${item.id}`)
+      .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
+      .then((result) => dispatch(fetchIndex.perform({ item: result.item }));
+  };
+}
+
+export function reducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case selectItem.Action:
+      return {
+        ...state,
+        item: action.item,
       };
     default:
       return state;
