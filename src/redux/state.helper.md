@@ -77,7 +77,7 @@ export function $selectItem(item) {
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case selectItem.Action:
+    case selectItem.ACTION:
       return {
         ...state,
         item: action.item,
