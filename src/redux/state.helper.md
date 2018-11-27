@@ -67,11 +67,11 @@ const selectItem = StateHelper.createAction(MODULE, 'selectItem');
 
 export function $selectItem(item) {
   return (dispatch) => {
-    dispatch(fetchIndex.perform({ item  }));
+    dispatch(selectItem.perform({ item  }));
 
     return fetch(`${API_ENDPOINT}/task/${item.id}`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(fetchIndex.perform({ item: result.item }));
+      .then((result) => dispatch(selectItem.perform({ item: result.item }));
   };
 }
 
