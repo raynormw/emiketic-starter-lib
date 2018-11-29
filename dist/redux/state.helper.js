@@ -7,13 +7,11 @@ Object.defineProperty(exports, "__esModule", {
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 exports.createAction = createAction;
-exports.createFetchActions = createFetchActions;
+exports.createAsyncOperation = createAsyncOperation;
+exports.createIndexMetaActions = createIndexMetaActions;
 exports.createRequestAction = createRequestAction;
 exports.createSuccessAction = createSuccessAction;
 exports.createFailureAction = createFailureAction;
-exports.createIndexMetaActions = createIndexMetaActions;
-exports.createIndexSuccessAction = createIndexSuccessAction;
-exports.createItemSuccessAction = createItemSuccessAction;
 /**
  * Action creator factory for typical action
  */
@@ -35,10 +33,10 @@ function createAction(module, actionTypePrefix) {
 }
 
 /**
- * Action creators factory for typical fetch operation
+ * Action creators factory for typical async operation
  */
 
-function createFetchActions(module, actionTypePrefix) {
+function createAsyncOperation(module, actionTypePrefix) {
   var prefix = module + '_' + actionTypePrefix;
 
   var REQUEST = prefix + '_REQUEST';
@@ -49,25 +47,25 @@ function createFetchActions(module, actionTypePrefix) {
     REQUEST: REQUEST,
 
     request: function request() {
-      var parameters = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var input = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       return _extends({
         type: REQUEST
-      }, parameters);
+      }, input);
     },
 
 
     SUCCESS: SUCCESS,
 
     success: function success() {
-      var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+      var output = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       return function (dispatch) {
         dispatch(_extends({
           type: SUCCESS
-        }, payload));
+        }, output));
 
-        return payload;
+        return output;
       };
     },
 
@@ -83,42 +81,6 @@ function createFetchActions(module, actionTypePrefix) {
         throw error;
       };
     }
-  };
-}
-
-function createRequestAction(actionType) {
-  return function request() {
-    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    return _extends({
-      type: actionType
-    }, payload);
-  };
-}
-
-function createSuccessAction(actionType) {
-  return function success() {
-    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    return function (dispatch) {
-      dispatch(_extends({
-        type: actionType
-      }, payload));
-
-      return payload;
-    };
-  };
-}
-
-function createFailureAction(actionType) {
-  return function failure(error) {
-    return function (dispatch) {
-      dispatch({
-        type: actionType
-      });
-
-      throw error;
-    };
   };
 }
 
@@ -220,34 +182,45 @@ function createIndexMetaActions(substate, actionType) {
   };
 }
 
-function createIndexSuccessAction(actionType) {
-  return function success(_ref) {
-    var data = _ref.data,
-        meta = _ref.meta;
+/**
+ * DEPRECATED
+ */
+
+function createRequestAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function request() {
+    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+    return _extends({
+      type: actionType
+    }, payload);
+  };
+}
+
+function createSuccessAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function success() {
+    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
     return function (dispatch) {
-      dispatch({
-        type: actionType,
-        data: data,
-        meta: meta
-      });
+      dispatch(_extends({
+        type: actionType
+      }, payload));
 
-      return { data: data, meta: meta };
+      return payload;
     };
   };
 }
 
-function createItemSuccessAction(actionType) {
-  return function success(_ref2) {
-    var item = _ref2.item;
-
+function createFailureAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function failure(error) {
     return function (dispatch) {
       dispatch({
-        type: actionType,
-        item: item
+        type: actionType
       });
 
-      return { item: item };
+      throw error;
     };
   };
 }

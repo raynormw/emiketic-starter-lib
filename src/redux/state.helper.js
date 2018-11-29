@@ -18,10 +18,10 @@ export function createAction(module, actionTypePrefix) {
 }
 
 /**
- * Action creators factory for typical fetch operation
+ * Action creators factory for typical async operation
  */
 
-export function createFetchActions(module, actionTypePrefix) {
+export function createAsyncOperation(module, actionTypePrefix) {
   const prefix = `${module}_${actionTypePrefix}`;
 
   const REQUEST = `${prefix}_REQUEST`;
@@ -31,23 +31,23 @@ export function createFetchActions(module, actionTypePrefix) {
   return {
     REQUEST,
 
-    request(parameters = {}) {
+    request(input = {}) {
       return {
         type: REQUEST,
-        ...parameters,
+        ...input,
       };
     },
 
     SUCCESS,
 
-    success(payload = {}) {
+    success(output = {}) {
       return (dispatch) => {
         dispatch({
           type: SUCCESS,
-          ...payload,
+          ...output,
         });
 
-        return payload;
+        return output;
       };
     },
 
@@ -62,40 +62,6 @@ export function createFetchActions(module, actionTypePrefix) {
         throw error;
       };
     },
-  };
-}
-
-export function createRequestAction(actionType) {
-  return function request(payload = {}) {
-    return {
-      type: actionType,
-      ...payload,
-    };
-  };
-}
-
-export function createSuccessAction(actionType) {
-  return function success(payload = {}) {
-    return (dispatch) => {
-      dispatch({
-        type: actionType,
-        ...payload,
-      });
-
-      return payload;
-    };
-  };
-}
-
-export function createFailureAction(actionType) {
-  return function failure(error) {
-    return (dispatch) => {
-      dispatch({
-        type: actionType,
-      });
-
-      throw error;
-    };
   };
 }
 
@@ -186,29 +152,43 @@ export function createIndexMetaActions(substate, actionType, defaults = {}) {
   };
 }
 
-export function createIndexSuccessAction(actionType) {
-  return function success({ data, meta }) {
-    return (dispatch) => {
-      dispatch({
-        type: actionType,
-        data,
-        meta,
-      });
+/**
+ * DEPRECATED
+ */
 
-      return { data, meta };
+export function createRequestAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function request(payload = {}) {
+    return {
+      type: actionType,
+      ...payload,
     };
   };
 }
 
-export function createItemSuccessAction(actionType) {
-  return function success({ item }) {
+export function createSuccessAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function success(payload = {}) {
     return (dispatch) => {
       dispatch({
         type: actionType,
-        item,
+        ...payload,
       });
 
-      return { item };
+      return payload;
+    };
+  };
+}
+
+export function createFailureAction(actionType) {
+  console.warn('DEPRECATED: use createAction or createAsyncOperation');
+  return function failure(error) {
+    return (dispatch) => {
+      dispatch({
+        type: actionType,
+      });
+
+      throw error;
     };
   };
 }
