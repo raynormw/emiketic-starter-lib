@@ -9,9 +9,6 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 exports.createAction = createAction;
 exports.createAsyncOperation = createAsyncOperation;
 exports.createIndexMetaActions = createIndexMetaActions;
-exports.createRequestAction = createRequestAction;
-exports.createSuccessAction = createSuccessAction;
-exports.createFailureAction = createFailureAction;
 /**
  * Action creator factory for typical action
  */
@@ -187,49 +184,6 @@ function createIndexMetaActions(substate, actionType) {
     $sort: $sort,
     $pageSize: $pageSize,
     $page: $page
-  };
-}
-
-/**
- * DEPRECATED
- */
-
-function createRequestAction(actionType) {
-  console.warn('DEPRECATED: use createAction or createAsyncOperation');
-  return function request() {
-    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    return _extends({
-      type: actionType
-    }, payload);
-  };
-}
-
-function createSuccessAction(actionType) {
-  console.warn('DEPRECATED: use createAction or createAsyncOperation');
-  return function success() {
-    var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-    return function (dispatch) {
-      dispatch(_extends({
-        type: actionType
-      }, payload));
-
-      return payload;
-    };
-  };
-}
-
-function createFailureAction(actionType) {
-  console.warn('DEPRECATED: use createAction or createAsyncOperation');
-  return function failure(error) {
-    return function (dispatch) {
-      dispatch({
-        type: actionType
-      });
-
-      throw error;
-    };
   };
 }
 //# sourceMappingURL=state.helper.js.map
