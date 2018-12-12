@@ -8,52 +8,6 @@
 import * as StateHelper from 'starter-lib/dist/redux/state.helper';
 ```
 
-### `StateHelper.createAsyncOperation`
-
-```javascript
-const MODULE = 'Task';
-
-const INITIAL_STATE = {
-  index: null,
-};
-
-const fetchIndex = StateHelper.createAsyncOperation(MODULE, 'fetchIndex');
-
-export function $fetchIndex() {
-  return (dispatch) => {
-    dispatch(fetchIndex.request());
-
-    return fetch(`${API_ENDPOINT}/task`)
-      .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(fetchIndex.success({ index: result.data })))
-      .catch((error) => dispatch(fetchIndex.failure(error)))
-      .finally(() => dispatch(Activity.$done()));
-  };
-}
-
-export function reducer(state = INITIAL_STATE, action) {
-  switch (action.type) {
-    case fetchIndex.REQUEST:
-      return {
-        ...state,
-        index: null,
-      };
-    case fetchIndex.SUCCESS:
-      return {
-        ...state,
-        index: action.index,
-      };
-    case fetchIndex.FAILURE:
-      return {
-        ...state,
-        index: null,
-      };
-    default:
-      return state;
-  }
-}
-```
-
 ### `StateHelper.createAction`
 
 ```javascript
@@ -87,3 +41,51 @@ export function reducer(state = INITIAL_STATE, action) {
   }
 }
 ```
+
+### `StateHelper.createAsyncOperation`
+
+```javascript
+const MODULE = 'Task';
+
+const INITIAL_STATE = {
+  index: null,
+};
+
+const fetchIndex = StateHelper.createAsyncOperation(MODULE, 'fetchIndex');
+
+export function $fetchIndex() {
+  return (dispatch) => {
+    dispatch(Activity.$processing());
+    dispatch(fetchIndex.request());
+
+    return fetch(`${API_ENDPOINT}/task`)
+      .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
+      .then((result) => dispatch(fetchIndex.success({ index: result.data })))
+      .catch((error) => dispatch(fetchIndex.failure(error)))
+      .finally(() => dispatch(Activity.$done()));
+  };
+}
+
+export function reducer(state = INITIAL_STATE, action) {
+  switch (action.type) {
+    case fetchIndex.REQUEST:
+      return {
+        ...state,
+        index: null,
+      };
+    case fetchIndex.SUCCESS:
+      return {
+        ...state,
+        index: action.index,
+      };
+    case fetchIndex.FAILURE:
+      return {
+        ...state,
+        index: null,
+      };
+    default:
+      return state;
+  }
+}
+```
+

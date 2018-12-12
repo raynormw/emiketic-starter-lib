@@ -16,10 +16,14 @@ exports.createFailureAction = createFailureAction;
  * Action creator factory for typical action
  */
 
-function createAction(module, actionTypePrefix) {
-  var ACTION = module + '_' + actionTypePrefix;
+function createAction(module, name) {
+  var ACTION = module + '_' + name;
 
   return {
+    module: module,
+
+    name: name,
+
     ACTION: ACTION,
 
     perform: function perform() {
@@ -36,14 +40,18 @@ function createAction(module, actionTypePrefix) {
  * Action creators factory for typical async operation
  */
 
-function createAsyncOperation(module, actionTypePrefix) {
-  var prefix = module + '_' + actionTypePrefix;
+function createAsyncOperation(module, name) {
+  var prefix = module + '_' + name;
 
   var REQUEST = prefix + '_REQUEST';
   var SUCCESS = prefix + '_SUCCESS';
   var FAILURE = prefix + '_FAILURE';
 
   return {
+    module: module,
+
+    name: name,
+
     REQUEST: REQUEST,
 
     request: function request() {

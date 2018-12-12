@@ -2,10 +2,14 @@
  * Action creator factory for typical action
  */
 
-export function createAction(module, actionTypePrefix) {
-  const ACTION = `${module}_${actionTypePrefix}`;
+export function createAction(module, name) {
+  const ACTION = `${module}_${name}`;
 
   return {
+    module,
+
+    name,
+
     ACTION,
 
     perform(payload = {}) {
@@ -21,14 +25,18 @@ export function createAction(module, actionTypePrefix) {
  * Action creators factory for typical async operation
  */
 
-export function createAsyncOperation(module, actionTypePrefix) {
-  const prefix = `${module}_${actionTypePrefix}`;
+export function createAsyncOperation(module, name) {
+  const prefix = `${module}_${name}`;
 
   const REQUEST = `${prefix}_REQUEST`;
   const SUCCESS = `${prefix}_SUCCESS`;
   const FAILURE = `${prefix}_FAILURE`;
 
   return {
+    module,
+
+    name,
+
     REQUEST,
 
     request(input = {}) {
