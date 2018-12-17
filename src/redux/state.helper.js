@@ -1,8 +1,8 @@
 /**
- * Action creator factory for typical action
+ * Action creator factory for simple operation
  */
 
-export function createAction(module, name) {
+export function createSimpleOperation(module, name) {
   const ACTION = `${module}_${name}`;
 
   return {
@@ -19,6 +19,12 @@ export function createAction(module, name) {
       };
     },
   };
+}
+
+export function createAction(module, name) {
+  console.warn('createAction it deprecated, use createSimpleOperation instead');
+
+  return createSimpleOperation(module, name);
 }
 
 /**

@@ -8,7 +8,7 @@
 import * as StateHelper from 'starter-lib/dist/redux/state.helper';
 ```
 
-### `StateHelper.createAction`
+### `StateHelper.createSimpleOperation`
 
 ```javascript
 const MODULE = 'Task';
@@ -17,7 +17,7 @@ const INITIAL_STATE = {
   item: null,
 };
 
-const selectItem = StateHelper.createAction(MODULE, 'selectItem');
+const selectItem = StateHelper.createSimpleOperation(MODULE, 'selectItem');
 
 export function $selectItem(item) {
   return (dispatch) => {

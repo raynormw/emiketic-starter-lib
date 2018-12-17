@@ -6,14 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
+exports.createSimpleOperation = createSimpleOperation;
 exports.createAction = createAction;
 exports.createAsyncOperation = createAsyncOperation;
 exports.createIndexMetaActions = createIndexMetaActions;
 /**
- * Action creator factory for typical action
+ * Action creator factory for simple operation
  */
 
-function createAction(module, name) {
+function createSimpleOperation(module, name) {
   var ACTION = module + '_' + name;
 
   return {
@@ -31,6 +32,12 @@ function createAction(module, name) {
       }, payload);
     }
   };
+}
+
+function createAction(module, name) {
+  console.warn('createAction it deprecated, use createSimpleOperation instead');
+
+  return createSimpleOperation(module, name);
 }
 
 /**
