@@ -21,12 +21,6 @@ export function createSimpleOperation(module, name) {
   };
 }
 
-export function createAction(module, name) {
-  console.warn('createAction it deprecated, use createSimpleOperation instead');
-
-  return createSimpleOperation(module, name);
-}
-
 /**
  * Action creators factory for typical async operation
  */
