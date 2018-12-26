@@ -21,17 +21,17 @@ const selectItem = StateHelper.createSimpleOperation(MODULE, 'selectItem');
 
 export function $selectItem(item) {
   return (dispatch) => {
-    dispatch(selectItem.perform({ item  }));
+    dispatch(selectItem.action({ item  }));
 
     return fetch(`${API_ENDPOINT}/task/${item.id}`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(selectItem.perform({ item: result.item }));
+      .then((result) => dispatch(selectItem.action({ item: result.item }));
   };
 }
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case selectItem.ACTION:
+    case selectItem.TYPE:
       return {
         ...state,
         item: action.item,

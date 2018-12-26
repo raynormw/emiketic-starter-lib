@@ -3,18 +3,18 @@
  */
 
 export function createSimpleOperation(module, name) {
-  const ACTION = `${module}_${name}`;
+  const TYPE = `${module}_${name}`;
 
   return {
     module,
 
     name,
 
-    ACTION,
+    TYPE,
 
-    perform(payload = {}) {
+    action(payload = {}) {
       return {
-        type: ACTION,
+        type: TYPE,
         ...payload,
       };
     },

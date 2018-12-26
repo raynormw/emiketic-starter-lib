@@ -14,20 +14,20 @@ exports.createIndexMetaActions = createIndexMetaActions;
  */
 
 function createSimpleOperation(module, name) {
-  var ACTION = module + '_' + name;
+  var TYPE = module + '_' + name;
 
   return {
     module: module,
 
     name: name,
 
-    ACTION: ACTION,
+    TYPE: TYPE,
 
-    perform: function perform() {
+    action: function action() {
       var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
       return _extends({
-        type: ACTION
+        type: TYPE
       }, payload);
     }
   };
