@@ -55,14 +55,11 @@ const fetchIndex = StateHelper.createAsyncOperation(MODULE, 'fetchIndex');
 
 export function $fetchIndex() {
   return (dispatch) => {
-    dispatch(Activity.$processing());
     dispatch(fetchIndex.request());
-
     return fetch(`${API_ENDPOINT}/task`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
       .then((result) => dispatch(fetchIndex.success({ index: result.data })))
-      .catch((error) => dispatch(fetchIndex.failure(error)))
-      .finally(() => dispatch(Activity.$done()));
+      .catch((error) => dispatch(fetchIndex.failure(error)));
   };
 }
 
