@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/node/polyfill.js"],"names":["global","self","require"],"mappings":";;AAAAA,OAAOC,IAAP,GAAcD,MAAd;;AAEAE,QAAQ,cAAR;;AAEA,OAAOF,OAAOC,IAAd","file":"polyfill.js","sourcesContent":["global.self = global;\n\nrequire('whatwg-fetch');\n\ndelete global.self;\n"]}

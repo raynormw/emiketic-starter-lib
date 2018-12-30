@@ -9,17 +9,19 @@
     "format": "npm run format:all && npm run format:js",
     "format:all": "prettier ./**/*.{md,json,js,css,scss} --write",
     "format:js": "eslint -o /dev/null --ext .js --fix ./ || true",
-    "test": "jest",
+    "test": "NODE_ICU_DATA=node_modules/full-icu jest",
     "build": "babel --source-maps true ./src/ -d ./dist/",
     "build:watch": "babel -w --source-maps true ./src/ -d ./dist/"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@babel/polyfill": "~7.2.3",
     "debug": "~4.1.1",
     "events": "~3.0.0",
-    "formdata-polyfill": "~3.0.13",
+    "full-icu": "~1.2.1",
     "intl": "~1.2.5",
+    "intl-relativeformat": "~2.1.0",
     "whatwg-fetch": "~3.0.0"
   },
   "devDependencies": {
@@ -31,6 +33,7 @@
     "eslint": "~5.11.0",
     "eslint-config-airbnb-base": "~13.1.0",
     "eslint-plugin-import": "~2.14.0",
+    "formdata-polyfill": "~3.0.13",
     "jest": "~23.6.0",
     "prettier": "~1.15.3"
   }

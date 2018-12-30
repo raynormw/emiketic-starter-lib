@@ -1,0 +1,1 @@
+{"version":3,"sources":["../../src/browser/polyfill.js"],"names":[],"mappings":";;AAGA;;AACA;;AACA;;AACA","file":"polyfill.js","sourcesContent":["// @IMPORTANT prefer Babel transform when possible\n\n// import '@babel/polyfill';\nimport 'intl';\nimport 'intl/locale-data/jsonp/en';\nimport 'intl/locale-data/jsonp/fr';\nimport 'whatwg-fetch';\n"]}

@@ -1,2 +1,1 @@
-import 'formdata-polyfill';
-import 'whatwg-fetch';
+import './src/browser/polyfill';
