@@ -1,39 +1,58 @@
-export function defineLocale(
-  locale,
+const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+export function defineLocale(locale, defaults = {}) {
   defaults = {
-    currency: '?',
-  },
-) {
+    timeZone: TIME_ZONE,
+    currency: 'USD',
+    ...defaults,
+  };
+
   function $t(text, ...args) {
     args.forEach((arg) => (text = text.replace('%{}', arg)));
     return text;
   }
 
-  $t.number = (value, options = {}) => value.toLocaleString(locale, options);
+  $t.number = function number(value, options = {}) {
+    return value.toLocaleString(locale, options);
+  };
 
-  // $t.currency = (value, currency = defaults.currency, options = {}) => `${value.toLocaleString(locale, options)} ${currency}`;
+  // $t.currency = function currency(value, currency = defaults.currency, options = {}) {
+  //   return `${value.toLocaleString(locale, options)} ${currency}`;
+  // };
 
-  $t.currency = (value, currency = defaults.currency, options = {}) => value.toLocaleString(locale, {
-    style: 'currency',
-    currency,
-    ...options,
-  });
+  $t.currency = function currency(value, currency = defaults.currency, options = {}) {
+    return value.toLocaleString(locale, {
+      style: 'currency',
+      currency,
+      ...options,
+    });
+  };
 
-  $t.date = (value, options = {}) => value.toLocaleDateString(locale, options);
+  $t.date = function date(value, options = {}) {
+    return value.toLocaleDateString(locale, {
+      ...options,
+      timeZone: options.timeZone || defaults.timeZone,
+    });
+  };
 
-  $t.time = (
+  $t.time = function time(
     value,
     options = {
       hour: 'numeric',
       minute: 'numeric',
     },
-  ) => value.toLocaleTimeString(locale, options);
+  ) {
+    return value.toLocaleTimeString(locale, {
+      ...options,
+      timeZone: options.timeZone || defaults.timeZone,
+    });
+  };
 
-  $t.timestamp = (value) => `${$t.date(value)} at ${$t.time(value)}`;
+  $t.timestamp = function timestamp(value) {
+    return `${$t.date(value)} at ${$t.time(value)}`;
+  };
 
   return $t;
 }
 
-export const $t = defineLocale('en', {
-  currency: 'USD',
-});
+export const $t = defineLocale('en');
