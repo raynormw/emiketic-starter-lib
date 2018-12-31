@@ -1,1 +1,7 @@
-const SANITIZE = (module.exports = {});
+/**
+ * Sanitation
+ */
+
+export function phone(value) {
+  return value.trim().toLowerCase();
+}

@@ -1,1 +1,7 @@
-const VALIDATE = (module.exports = {});
+/**
+ * Validation
+ */
+
+export function email(value) {
+  return value.includes('@');
+}

@@ -1,4 +1,14 @@
 "use strict";
 
-var SANITIZE = module.exports = {};
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.phone = phone;
+/**
+ * Sanitation
+ */
+
+function phone(value) {
+  return value.trim().toLowerCase();
+}
 //# sourceMappingURL=sanitize.js.map
