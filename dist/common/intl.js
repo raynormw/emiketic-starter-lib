@@ -17,62 +17,64 @@ function defineLocale(locale) {
     currency: 'USD'
   }, defaults);
 
-  function $t(text) {
-    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-      args[_key - 1] = arguments[_key];
+  var $locale = {
+    $t: function $t(text) {
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      args.forEach(function (arg) {
+        return text = text.replace('%{}', arg);
+      });
+      return text;
+    },
+    number: function number(value) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      return value.toLocaleString(locale, options);
+    },
+
+
+    // currency(value, currency = defaults.currency, options = {}) {
+    //   return `${value.toLocaleString(locale, options)} ${currency}`;
+    // },
+
+    currency: function currency(value) {
+      var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaults.currency;
+      var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+
+      return value.toLocaleString(locale, _extends({
+        style: 'currency',
+        currency: currency
+      }, options));
+    },
+    date: function date(value) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
+
+      return value.toLocaleDateString(locale, _extends({}, options, {
+        timeZone: options.timeZone || defaults.timeZone
+      }));
+    },
+    time: function time(value) {
+      var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
+        hour: 'numeric',
+        minute: 'numeric'
+      };
+
+      return value.toLocaleTimeString(locale, _extends({}, options, {
+        timeZone: options.timeZone || defaults.timeZone
+      }));
     }
-
-    args.forEach(function (arg) {
-      return text = text.replace('%{}', arg);
-    });
-    return text;
-  }
-
-  $t.number = function number(value) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    return value.toLocaleString(locale, options);
   };
 
-  // $t.currency = function currency(value, currency = defaults.currency, options = {}) {
-  //   return `${value.toLocaleString(locale, options)} ${currency}`;
-  // };
+  Object.assign($locale, {
+    timestamp: function timestamp(value) {
+      return $locale.date(value) + ' ' + $locale.time(value);
+    }
+  });
 
-  $t.currency = function currency(value) {
-    var currency = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : defaults.currency;
-    var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-
-    return value.toLocaleString(locale, _extends({
-      style: 'currency',
-      currency: currency
-    }, options));
-  };
-
-  $t.date = function date(value) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-    return value.toLocaleDateString(locale, _extends({}, options, {
-      timeZone: options.timeZone || defaults.timeZone
-    }));
-  };
-
-  $t.time = function time(value) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {
-      hour: 'numeric',
-      minute: 'numeric'
-    };
-
-    return value.toLocaleTimeString(locale, _extends({}, options, {
-      timeZone: options.timeZone || defaults.timeZone
-    }));
-  };
-
-  $t.timestamp = function timestamp(value) {
-    return $t.date(value) + ' at ' + $t.time(value);
-  };
-
-  return $t;
+  return $locale;
 }
 
-var $t = exports.$t = defineLocale('en');
+var $locale = exports.$locale = defineLocale('en');
 //# sourceMappingURL=intl.js.map

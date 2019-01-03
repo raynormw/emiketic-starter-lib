@@ -3,29 +3,29 @@
 ## Usage
 
 ```javascript
-import { $t } from 'starter-lib/dist/common/intl';
+import { $locale } from 'starter-lib/dist/common/intl';
 
-$t('Log in');
+$locale.$t('Log in');
 // return translated text
 
-$t('Your event "%{}" have %{} subscribers', event.title, event.subscribersCount);
+$locale.$t('Your event "%{}" have %{} subscribers', event.title, event.subscribersCount);
 // return translated text
 
-$t('Last connection %{}', date);
+$locale.$t('Last connection %{}', date);
 // return translated text
 
-$t.number(event.subscribersCount);
+$locale.number(event.subscribersCount);
 // return localized number
 
-$t.currency(event.subscriptionFee);
+$locale.currency(event.subscriptionFee);
 // return localized number with currency
 
-$t.date(new Date());
+$locale.date(new Date());
 // return localized date
 
-$t.time(new Date());
+$locale.time(new Date());
 // return localized time
 
-$t.timestamp(new Date());
+$locale.timestamp(new Date());
 // return localized timestamp
 ```

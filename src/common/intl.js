@@ -1,4 +1,4 @@
-const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
+export const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
 export function defineLocale(locale, defaults = {}) {
   defaults = {
@@ -7,52 +7,56 @@ export function defineLocale(locale, defaults = {}) {
     ...defaults,
   };
 
-  function $t(text, ...args) {
-    args.forEach((arg) => (text = text.replace('%{}', arg)));
-    return text;
-  }
-
-  $t.number = function number(value, options = {}) {
-    return value.toLocaleString(locale, options);
-  };
-
-  // $t.currency = function currency(value, currency = defaults.currency, options = {}) {
-  //   return `${value.toLocaleString(locale, options)} ${currency}`;
-  // };
-
-  $t.currency = function currency(value, currency = defaults.currency, options = {}) {
-    return value.toLocaleString(locale, {
-      style: 'currency',
-      currency,
-      ...options,
-    });
-  };
-
-  $t.date = function date(value, options = {}) {
-    return value.toLocaleDateString(locale, {
-      ...options,
-      timeZone: options.timeZone || defaults.timeZone,
-    });
-  };
-
-  $t.time = function time(
-    value,
-    options = {
-      hour: 'numeric',
-      minute: 'numeric',
+  const $locale = {
+    $t(text, ...args) {
+      args.forEach((arg) => (text = text.replace('%{}', arg)));
+      return text;
     },
-  ) {
-    return value.toLocaleTimeString(locale, {
-      ...options,
-      timeZone: options.timeZone || defaults.timeZone,
-    });
+
+    number(value, options = {}) {
+      return value.toLocaleString(locale, options);
+    },
+
+    // currency(value, currency = defaults.currency, options = {}) {
+    //   return `${value.toLocaleString(locale, options)} ${currency}`;
+    // },
+
+    currency(value, currency = defaults.currency, options = {}) {
+      return value.toLocaleString(locale, {
+        style: 'currency',
+        currency,
+        ...options,
+      });
+    },
+
+    date(value, options = {}) {
+      return value.toLocaleDateString(locale, {
+        ...options,
+        timeZone: options.timeZone || defaults.timeZone,
+      });
+    },
+
+    time(
+      value,
+      options = {
+        hour: 'numeric',
+        minute: 'numeric',
+      },
+    ) {
+      return value.toLocaleTimeString(locale, {
+        ...options,
+        timeZone: options.timeZone || defaults.timeZone,
+      });
+    },
   };
 
-  $t.timestamp = function timestamp(value) {
-    return `${$t.date(value)} at ${$t.time(value)}`;
-  };
+  Object.assign($locale, {
+    timestamp(value) {
+      return `${$locale.date(value)} ${$locale.time(value)}`;
+    },
+  });
 
-  return $t;
+  return $locale;
 }
 
-export const $t = defineLocale('en');
+export const $locale = defineLocale('en');
