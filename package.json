@@ -2,7 +2,10 @@
   "private": true,
   "name": "starter-lib",
   "version": "0.5.4",
-  "main": "index.js",
+  "engines": {
+    "node": "^10.0.0",
+    "npm": "^6.0.0"
+  },
   "scripts": {
     "lint": "eslint --ext .js ./",
     "lint:critical": "eslint --no-eslintrc --config .eslintrc.critical.json ./",
@@ -13,8 +16,6 @@
     "build": "babel --source-maps true ./src/ -d ./dist/",
     "build:watch": "babel -w --source-maps true ./src/ -d ./dist/"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/polyfill": "~7.2.5",
     "debug": "~4.1.1",
