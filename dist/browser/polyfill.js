@@ -1,12 +1,12 @@
-'use strict';
+"use strict";
 
-require('@babel/polyfill');
+require("@babel/polyfill");
 
-require('intl');
+require("intl");
 
-require('intl/locale-data/jsonp/en');
+require("intl/locale-data/jsonp/en");
 
-require('intl/locale-data/jsonp/fr');
+require("intl/locale-data/jsonp/fr");
 
-require('whatwg-fetch');
+require("whatwg-fetch");
 //# sourceMappingURL=polyfill.js.map

@@ -3,7 +3,7 @@
  */
 
 export function createSimpleOperation(module, name) {
-  const TYPE = `${module}_${name}`;
+  const TYPE = `${module}.${name}`;
 
   return {
     module,
@@ -26,11 +26,11 @@ export function createSimpleOperation(module, name) {
  */
 
 export function createAsyncOperation(module, name) {
-  const prefix = `${module}_${name}`;
+  const prefix = `${module}.${name}`;
 
-  const REQUEST = `${prefix}_REQUEST`;
-  const SUCCESS = `${prefix}_SUCCESS`;
-  const FAILURE = `${prefix}_FAILURE`;
+  const REQUEST = `${prefix}.REQUEST`;
+  const SUCCESS = `${prefix}.SUCCESS`;
+  const FAILURE = `${prefix}.FAILURE`;
 
   return {
     module,

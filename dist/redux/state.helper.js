@@ -1,97 +1,78 @@
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-
 exports.createSimpleOperation = createSimpleOperation;
 exports.createAsyncOperation = createAsyncOperation;
 exports.createIndexMetaActions = createIndexMetaActions;
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { if (i % 2) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } else { Object.defineProperties(target, Object.getOwnPropertyDescriptors(arguments[i])); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 /**
  * Action creator factory for simple operation
  */
-
 function createSimpleOperation(module, name) {
-  var TYPE = module + '_' + name;
-
+  var TYPE = "".concat(module, ".").concat(name);
   return {
     module: module,
-
     name: name,
-
     TYPE: TYPE,
-
     action: function action() {
       var payload = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      return _extends({
+      return _objectSpread({
         type: TYPE
       }, payload);
     }
   };
 }
-
 /**
  * Action creators factory for typical async operation
  */
 
+
 function createAsyncOperation(module, name) {
-  var prefix = module + '_' + name;
-
-  var REQUEST = prefix + '_REQUEST';
-  var SUCCESS = prefix + '_SUCCESS';
-  var FAILURE = prefix + '_FAILURE';
-
+  var prefix = "".concat(module, ".").concat(name);
+  var REQUEST = "".concat(prefix, ".REQUEST");
+  var SUCCESS = "".concat(prefix, ".SUCCESS");
+  var FAILURE = "".concat(prefix, ".FAILURE");
   return {
     module: module,
-
     name: name,
-
     REQUEST: REQUEST,
-
     request: function request() {
       var input = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
-      return _extends({
+      return _objectSpread({
         type: REQUEST
       }, input);
     },
-
-
     SUCCESS: SUCCESS,
-
     success: function success() {
       var output = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-
       return function (dispatch) {
-        dispatch(_extends({
+        dispatch(_objectSpread({
           type: SUCCESS
         }, output));
-
         return output;
       };
     },
-
-
     FAILURE: FAILURE,
-
     failure: function failure(error) {
       return function (dispatch) {
         dispatch({
           type: FAILURE
         });
-
         throw error;
       };
     }
   };
 }
-
 /**
  * Action creators makers for typical index view
  */
+
 
 var INDEX_PAGE_SIZE_DEFAULT = 50;
 
@@ -112,7 +93,6 @@ function createIndexMetaActions(substate, actionType) {
 
   function $filter() {
     var filter = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
     return {
       type: actionType,
       meta: {
@@ -124,7 +104,6 @@ function createIndexMetaActions(substate, actionType) {
 
   function $sort() {
     var sort = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-
     return {
       type: actionType,
       meta: {
@@ -156,10 +135,8 @@ function createIndexMetaActions(substate, actionType) {
 
   function $page() {
     var page = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 1;
-
     return function (dispatch, getState) {
       var meta = getState()[substate].meta;
-
 
       if (page < 1) {
         page = 1;
