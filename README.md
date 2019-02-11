@@ -1,5 +1,7 @@
 # Starter Library
 
+![](https://img.shields.io/david/emiketic/emiketic-starter-lib.svg?style=for-the-badge)
+
 A collection of common utilities.
 
 ## Modules
