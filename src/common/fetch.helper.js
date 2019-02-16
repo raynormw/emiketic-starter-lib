@@ -180,7 +180,7 @@ export function ResponseHandler(
 }
 
 export function ErrorValueHandler(_error, failureModifier = (error, response) => error) {
-  let code = _error.code;
+  let { code } = _error;
   let message = _error.message || _error.error;
 
   code = code || 'Unknown';
