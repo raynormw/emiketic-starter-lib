@@ -51,6 +51,15 @@ function (_NativeEventEmitter) {
         throw error;
       });
     }
+  }, {
+    key: "onceAsync",
+    value: function onceAsync(event) {
+      var _this = this;
+
+      return new Promise(function (resolve) {
+        return _this.once(event, resolve);
+      });
+    }
   }]);
 
   return EventEmitter;

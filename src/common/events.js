@@ -8,4 +8,8 @@ export class EventEmitter extends NativeEventEmitter {
         throw error;
       });
   }
+
+  onceAsync(event) {
+    return new Promise((resolve) => this.once(event, resolve));
+  }
 }
