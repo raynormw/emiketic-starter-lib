@@ -221,7 +221,7 @@ regeneratorRuntime.mark(function _callee() {
           return _context.stop();
       }
     }
-  }, _callee, this, [[0, 10]]);
+  }, _callee, null, [[0, 10]]);
 })));
 test('FetchHelper async/await failure example',
 /*#__PURE__*/
@@ -260,7 +260,7 @@ regeneratorRuntime.mark(function _callee2() {
           return _context2.stop();
       }
     }
-  }, _callee2, this, [[0, 9]]);
+  }, _callee2, null, [[0, 9]]);
 })));
 test('FetchHelper.toQueryString example', function (done) {
   fetch("".concat(ENDPOINT, "/anything?").concat(FetchHelper.toQueryString({
