@@ -51,31 +51,31 @@ const INITIAL_STATE = {
   index: null,
 };
 
-const fetchIndex = StateHelper.createAsyncOperation(MODULE, 'fetchIndex');
+const fetchTasks = StateHelper.createAsyncOperation(MODULE, 'fetchTasks');
 
-export function $fetchIndex() {
+export function $fetchTasks() {
   return (dispatch) => {
-    dispatch(fetchIndex.request());
+    dispatch(fetchTasks.request());
     return fetch(`${API_ENDPOINT}/task`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(fetchIndex.success({ index: result.data })))
-      .catch((error) => dispatch(fetchIndex.failure(error)));
+      .then((result) => dispatch(fetchTasks.success({ index: result.data })))
+      .catch((error) => dispatch(fetchTasks.failure(error)));
   };
 }
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case fetchIndex.REQUEST:
+    case fetchTasks.REQUEST:
       return {
         ...state,
         index: null,
       };
-    case fetchIndex.SUCCESS:
+    case fetchTasks.SUCCESS:
       return {
         ...state,
         index: action.index,
       };
-    case fetchIndex.FAILURE:
+    case fetchTasks.FAILURE:
       return {
         ...state,
         index: null,
