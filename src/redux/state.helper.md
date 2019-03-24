@@ -48,7 +48,7 @@ export function reducer(state = INITIAL_STATE, action) {
 const MODULE = 'Task';
 
 const INITIAL_STATE = {
-  index: null,
+  tasks: null,
 };
 
 const fetchTasks = StateHelper.createAsyncOperation(MODULE, 'fetchTasks');
@@ -58,7 +58,7 @@ export function $fetchTasks() {
     dispatch(fetchTasks.request());
     return fetch(`${API_ENDPOINT}/task`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(fetchTasks.success({ index: result.data })))
+      .then((result) => dispatch(fetchTasks.success({ tasks: result.data })))
       .catch((error) => dispatch(fetchTasks.failure(error)));
   };
 }
@@ -68,17 +68,17 @@ export function reducer(state = INITIAL_STATE, action) {
     case fetchTasks.REQUEST:
       return {
         ...state,
-        index: null,
+        tasks: null,
       };
     case fetchTasks.SUCCESS:
       return {
         ...state,
-        index: action.index,
+        tasks: action.tasks,
       };
     case fetchTasks.FAILURE:
       return {
         ...state,
-        index: null,
+        tasks: null,
       };
     default:
       return state;
