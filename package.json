@@ -9,15 +9,13 @@
   "scripts": {
     "lint": "eslint --ext .js ./",
     "lint:critical": "eslint --no-eslintrc --config .eslintrc.critical.json ./",
-    "format": "npm run format:all && npm run format:js",
-    "format:all": "prettier './**/*.{md,json,js,css,scss}' --write",
-    "format:js": "eslint -o /dev/null --ext .js --fix ./ || true",
+    "format": "prettier './**/*.{md,json,js,css,scss}' --write && eslint -o /dev/null --ext .js --fix ./ || true",
     "test": "NODE_ICU_DATA=node_modules/full-icu jest",
     "build": "babel --source-maps true ./src/ -d ./dist/",
     "build:watch": "babel -w --source-maps true ./src/ -d ./dist/"
   },
   "dependencies": {
-    "@babel/polyfill": "~7.2.5",
+    "@babel/polyfill": "~7.4.0",
     "debug": "~4.1.1",
     "events": "~3.0.0",
     "intl": "~1.2.5",
@@ -26,8 +24,8 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
-    "@babel/core": "~7.3.4",
-    "@babel/preset-env": "~7.3.4",
+    "@babel/core": "~7.4.0",
+    "@babel/preset-env": "~7.4.2",
     "babel-core": "^7.0.0-bridge.0",
     "babel-eslint": "~10.0.1",
     "babel-jest": "~24.5.0",
