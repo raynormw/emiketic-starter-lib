@@ -1,28 +1,28 @@
 export const TIME_ZONE = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-export function defineLocale(locale, defaults = {}) {
+export function defineLocale(localeCode, defaults = {}) {
   defaults = {
     timeZone: TIME_ZONE,
     currency: 'USD',
     ...defaults,
   };
 
-  const $locale = {
+  const locale = {
     $t(text, ...args) {
       args.forEach((arg) => (text = text.replace('%{}', arg)));
       return text;
     },
 
     number(value, options = {}) {
-      return value.toLocaleString(locale, options);
+      return value.toLocaleString(localeCode, options);
     },
 
     // currency(value, currency = defaults.currency, options = {}) {
-    //   return `${value.toLocaleString(locale, options)} ${currency}`;
+    //   return `${value.toLocaleString(localeCode, options)} ${currency}`;
     // },
 
     currency(value, currency = defaults.currency, options = {}) {
-      return value.toLocaleString(locale, {
+      return value.toLocaleString(localeCode, {
         style: 'currency',
         currency,
         ...options,
@@ -30,7 +30,7 @@ export function defineLocale(locale, defaults = {}) {
     },
 
     date(value, options = {}) {
-      return value.toLocaleDateString(locale, {
+      return value.toLocaleDateString(localeCode, {
         ...options,
         timeZone: options.timeZone || defaults.timeZone,
       });
@@ -43,20 +43,26 @@ export function defineLocale(locale, defaults = {}) {
         minute: 'numeric',
       },
     ) {
-      return value.toLocaleTimeString(locale, {
+      return value.toLocaleTimeString(localeCode, {
         ...options,
         timeZone: options.timeZone || defaults.timeZone,
       });
     },
   };
 
-  Object.assign($locale, {
+  Object.assign(locale, {
     timestamp(value) {
-      return `${$locale.date(value)} ${$locale.time(value)}`;
+      return `${locale.date(value)} ${locale.time(value)}`;
     },
   });
 
-  return $locale;
+  return locale;
 }
 
-export const $locale = defineLocale('en');
+const $intl = {};
+
+$intl.en = defineLocale('en');
+
+$intl.current = $intl.en;
+
+export default $intl;

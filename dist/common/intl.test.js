@@ -1,30 +1,32 @@
 "use strict";
 
 /* eslint-env jest */
-var $intl = require('./intl');
+var _require = require('./intl'),
+    defineLocale = _require.defineLocale,
+    $intl = _require.default;
 
-var $locale = $intl.defineLocale('fr', {
+$intl.current = $intl.fr = defineLocale('fr', {
   timeZone: 'Europe/Paris',
   currency: 'EUR'
 });
-test('$locale.number', function () {
+test('$intl.current.number', function () {
   var input = 123456.789;
-  var output = $locale.number(input);
+  var output = $intl.current.number(input);
   expect(output.replace(/\s/gi, ' ')).toEqual('123 456,789');
 });
-test('$locale.currency', function () {
+test('$intl.current.currency', function () {
   var input = 123456.789;
-  var output = $locale.currency(input);
+  var output = $intl.current.currency(input);
   expect(output.replace(/\s/gi, ' ')).toEqual('123 456,79 €');
 });
-test('$locale.date', function () {
+test('$intl.current.date', function () {
   var input = new Date(Date.UTC(2000, 1, 1, 1, 1, 1));
-  var output = $locale.date(input);
+  var output = $intl.current.date(input);
   expect(output).toBe('01/02/2000');
 });
-test('$locale.time', function () {
+test('$intl.current.time', function () {
   var input = new Date(Date.UTC(2000, 1, 1, 1, 1, 1));
-  var output = $locale.time(input);
+  var output = $intl.current.time(input);
   expect(output).toBe('02:01');
 });
 //# sourceMappingURL=intl.test.js.map
