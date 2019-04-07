@@ -1,44 +1,86 @@
 /**
- * Action creator factory for simple operation
+ * @typedef {Object<Function>} SimpleOperationFunction
+ * @prop {string} MODULE
+ * @prop {string} NAME
+ * @prop {string} OPERATION
+ * @prop {string} ACTION
+ * @prop {function} action
  */
 
-export function createSimpleOperation(module, name) {
-  const TYPE = `${module}.${name}`;
+/**
+ * @typedef {Object} AsyncOperationFunction
+ * @prop {string} MODULE
+ * @prop {string} NAME
+ * @prop {string} OPERATION
+ * @prop {string} REQUEST
+ * @prop {function} request
+ * @prop {string} SUCCESS
+ * @prop {function} success
+ * @prop {string} FAILURE
+ * @prop {function} failure
+ */
 
-  return {
-    module,
+/**
+ * Action creator factory for simple operation
+ *
+ * @template T
+ * @param {string} module
+ * @param {string} name
+ * @param {T} action
+ * @returns {T&SimpleOperationFunction} input action augmented by helpers
+ */
 
-    name,
+export function createSimpleOperation(module, name, action = null) {
+  const operation = `${module}.${name}`;
 
-    TYPE,
+  const ACTION = `${operation}.ACTION`;
 
+  const config = {
+    MODULE: module,
+    NAME: name,
+    OPERATION: operation,
+
+    ACTION,
     action(payload = {}) {
       return {
-        type: TYPE,
+        type: ACTION,
         ...payload,
       };
     },
   };
+
+  if (action) {
+    Object.assign(action, config);
+    action.config = config;
+    return action;
+  }
+
+  return config;
 }
 
 /**
  * Action creators factory for typical async operation
+ *
+ * @template T
+ * @param {string} module
+ * @param {string} name
+ * @param {T} action
+ * @returns {T&AsyncOperationFunction} input action augmented by helpers
  */
 
-export function createAsyncOperation(module, name) {
-  const prefix = `${module}.${name}`;
+export function createAsyncOperation(module, name, action = null) {
+  const operation = `${module}.${name}`;
 
-  const REQUEST = `${prefix}.REQUEST`;
-  const SUCCESS = `${prefix}.SUCCESS`;
-  const FAILURE = `${prefix}.FAILURE`;
+  const REQUEST = `${operation}.REQUEST`;
+  const SUCCESS = `${operation}.SUCCESS`;
+  const FAILURE = `${operation}.FAILURE`;
 
-  return {
-    module,
-
-    name,
+  const config = {
+    MODULE: module,
+    NAME: name,
+    OPERATION: operation,
 
     REQUEST,
-
     request(input = {}) {
       return {
         type: REQUEST,
@@ -47,7 +89,6 @@ export function createAsyncOperation(module, name) {
     },
 
     SUCCESS,
-
     success(output = {}) {
       return (dispatch) => {
         dispatch({
@@ -60,7 +101,6 @@ export function createAsyncOperation(module, name) {
     },
 
     FAILURE,
-
     failure(error) {
       return (dispatch) => {
         dispatch({
@@ -71,91 +111,12 @@ export function createAsyncOperation(module, name) {
       };
     },
   };
-}
 
-/**
- * Action creators makers for typical index view
- */
-
-const INDEX_PAGE_SIZE_DEFAULT = 50;
-
-export function createIndexMetaActions(substate, actionType, defaults = {}) {
-  function $reset() {
-    return {
-      type: actionType,
-      meta: {
-        filter: defaults.filter || '',
-        sort: defaults.sort || '',
-        page: 1,
-        pageSize: defaults.pageSize || INDEX_PAGE_SIZE_DEFAULT,
-      },
-    };
+  if (action) {
+    Object.assign(action, config);
+    action.config = config;
+    return action;
   }
 
-  function $filter(filter = '') {
-    return {
-      type: actionType,
-      meta: {
-        filter,
-        page: 1,
-      },
-    };
-  }
-
-  function $sort(sort = '') {
-    return {
-      type: actionType,
-      meta: {
-        sort,
-        page: 1,
-      },
-    };
-  }
-
-  function $pageSize(pageSize = INDEX_PAGE_SIZE_DEFAULT) {
-    if (pageSize < 1) {
-      pageSize = 10;
-    }
-
-    if (pageSize > 100) {
-      pageSize = 100;
-    }
-
-    return {
-      type: actionType,
-      meta: {
-        pageSize,
-        page: 1,
-      },
-    };
-  }
-
-  function $page(page = 1) {
-    return (dispatch, getState) => {
-      const { meta } = getState()[substate];
-
-      if (page < 1) {
-        page = 1;
-      }
-
-      if (page > meta.pageTotal) {
-        page = meta.pageTotal - 1;
-      }
-
-      dispatch({
-        type: actionType,
-        meta: {
-          page,
-        },
-      });
-    };
-  }
-
-  return {
-    $reset,
-    $filter,
-    $sort,
-    $pageSize,
-    $page,
-  };
+  return config;
 }

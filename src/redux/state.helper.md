@@ -17,21 +17,19 @@ const INITIAL_STATE = {
   item: null,
 };
 
-const selectItem = StateHelper.createSimpleOperation(MODULE, 'selectItem');
-
-export function $selectItem(item) {
+const $selectItem = StateHelper.createSimpleOperation(MODULE, 'selectItem', (item) => {
   return (dispatch) => {
-    dispatch(selectItem.action({ item  }));
+    dispatch($selectItem.action({ item  }));
 
     return fetch(`${API_ENDPOINT}/task/${item.id}`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(selectItem.action({ item: result.item }));
+      .then((result) => dispatch($selectItem.action({ item: result.item }));
   };
-}
+});
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case selectItem.TYPE:
+    case $selectItem.ACTION:
       return {
         ...state,
         item: action.item,
@@ -40,6 +38,8 @@ export function reducer(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+// `dispatch($selectItem(item))` in components
 ```
 
 ### `StateHelper.createAsyncOperation`
@@ -51,31 +51,29 @@ const INITIAL_STATE = {
   tasks: null,
 };
 
-const fetchTasks = StateHelper.createAsyncOperation(MODULE, 'fetchTasks');
-
-export function $fetchTasks() {
+const $fetchTasks = StateHelper.createAsyncOperation(MODULE, 'fetchTasks', () => {
   return (dispatch) => {
-    dispatch(fetchTasks.request());
+    dispatch($fetchTasks.request());
     return fetch(`${API_ENDPOINT}/task`)
       .then(FetchHelper.ResponseHandler, FetchHelper.ErrorHandler)
-      .then((result) => dispatch(fetchTasks.success({ tasks: result.data })))
-      .catch((error) => dispatch(fetchTasks.failure(error)));
+      .then((result) => dispatch($fetchTasks.success({ tasks: result.data })))
+      .catch((error) => dispatch($fetchTasks.failure(error)));
   };
-}
+});
 
 export function reducer(state = INITIAL_STATE, action) {
   switch (action.type) {
-    case fetchTasks.REQUEST:
+    case $fetchTasks.REQUEST:
       return {
         ...state,
         tasks: null,
       };
-    case fetchTasks.SUCCESS:
+    case $fetchTasks.SUCCESS:
       return {
         ...state,
         tasks: action.tasks,
       };
-    case fetchTasks.FAILURE:
+    case $fetchTasks.FAILURE:
       return {
         ...state,
         tasks: null,
@@ -84,4 +82,6 @@ export function reducer(state = INITIAL_STATE, action) {
       return state;
   }
 }
+
+// `dispatch($fetchTasks())` in components
 ```
